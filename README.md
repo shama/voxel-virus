@@ -2,7 +2,7 @@
 
 Spread a virus in [voxel.js](http://voxeljs.com).
 
-Might make a good fire module as well ;)
+Might make a good base for a fire or water module as well ;)
 
 # example
 
