@@ -27,7 +27,7 @@ Virus.prototype.infect = function(block, level) {
     var pos = game.cameraPosition();
     block = game.raycast(pos, vec, 100).voxel;
   }
-  if (level >= this.decay || !block || game.getBlock(block) === 0) return;
+  if (level >= this.decay || !block) return;
   if (this.material !== false) game.setBlock(block, this.material);
   this.infected.push([this.elapsed + this.rate, block, level]);
 };
@@ -42,7 +42,9 @@ Virus.prototype.around = function(block) {
     [0, 0, 1], [0, 0, -1],
   ].forEach(function(p) {
     if (Math.random() >= self.virulence) return;
-    around.push([block[0] + (p[0] * size), block[1] + (p[1] * size), block[2] + (p[2] * size)]);
+    var b = [block[0] + (p[0] * size), block[1] + (p[1] * size), block[2] + (p[2] * size)];
+    if (self.game.getBlock(b) === 0) return;
+    around.push(b);
   });
   return around;
 };
