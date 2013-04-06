@@ -1,3 +1,5 @@
+var isArray = require('util').isArray;
+
 function Virus(opts) {
   if (!(this instanceof Virus)) return new Virus(opts || {});
   if (opts.THREE) opts = {game:opts};
@@ -17,11 +19,13 @@ module.exports = Virus;
 
 Virus.prototype.infect = function(block, level) {
   var game = this.game;
-  level = level || 0;
-  if (!(block instanceof game.THREE.Vector3)) {
+  if (typeof level !== 'number') {
+    level = 0;
+  }
+  if (!isArray(block)) {
     var vec = game.cameraVector();
     var pos = game.cameraPosition();
-    block = game.raycast(pos, vec, 100);
+    block = game.raycast(pos, vec, 100).voxel;
   }
   if (level >= this.decay || !block || game.getBlock(block) === 0) return;
   if (this.material !== false) game.setBlock(block, this.material);
@@ -38,8 +42,7 @@ Virus.prototype.around = function(block) {
     [0, 0, 1], [0, 0, -1],
   ].forEach(function(p) {
     if (Math.random() >= self.virulence) return;
-    var v = new self.game.THREE.Vector3(p[0] * size, p[1] * size, p[2] * size);
-    around.push(v.addSelf(block));
+    around.push([block[0] + (p[0] * size), block[1] + (p[1] * size), block[2] + (p[2] * size)]);
   });
   return around;
 };

@@ -1,7 +1,7 @@
 {
   "name": "voxel-virus",
   "description": "Spread a virus in voxel.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/shama/voxel-virus",
   "author": {
     "name": "Kyle Robinson Young",
@@ -29,12 +29,12 @@
     "gh-pages": "cp -R ./example/* ./ && browserify world.js -o world.js"
   },
   "devDependencies": {
-    "voxel-engine": "~0.6.0",
-    "browservefy": "0.0.8",
+    "voxel-engine": "~0.16.3",
+    "browservefy": "0.0.9",
     "voxel-player": "~0.1.0",
     "voxel-perlin-terrain": "0.0.5"
   },
   "peerDependencies": {
-    "voxel-engine": "~0.6.0"
+    "voxel-engine": "~0.16.3"
   }
 }

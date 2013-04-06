@@ -98,6 +98,7 @@ npm install voxel-virus
 Use [browserify](http://browserify.org) to `require('voxel-virus')`.
 
 ## release history
+* 0.1.1 - update for voxel-engine@0.16.3
 * 0.1.0 - initial release
 
 ## license
