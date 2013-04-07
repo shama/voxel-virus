@@ -12,7 +12,7 @@ function Virus(opts) {
   this.infected  = [];
   this.elapsed   = 0;
   if (typeof this.material === 'string') {
-    this.material = this.game.materials.find(this.material);
+    this.material = this.game.materials.findIndex(this.material);
   }
 }
 module.exports = Virus;
