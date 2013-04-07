@@ -4,7 +4,7 @@ var createTerrain = require('voxel-perlin-terrain');
 var game = createGame({
   generateVoxelChunk: createTerrain({scaleFactor:10}),
   chunkDistance: 2,
-  materials: ['brick', ['grass', 'dirt', 'grass_dirt'], 'plank', 'obsidian'],
+  materials: ['brick', ['grass', 'dirt', 'grass_dirt'], 'plank', 'obsidian', 'redwool', 'bluewool'],
   texturePath: 'textures/'
 });
 var container = document.body;
@@ -19,7 +19,21 @@ shama.possess();
 // create the virus
 var virus = require('../')({
   game: game,
-  material: 4,
+  material: 'redwool',
 });
 game.on('fire', virus.infect.bind(virus));
 game.on('tick', virus.tick.bind(virus));
+
+var toWater = require('./water');
+
+// add a toolbar
+var toolbar = require('toolbar')('.bar-tab');
+var toVirus = false;
+toolbar.on('select', function(item) {
+  if (item === 'water') {
+    toVirus = toWater(virus, 'bluewool');
+  } else if (toVirus) {
+    toVirus(virus);
+    toVirus = false;
+  }
+});
