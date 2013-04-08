@@ -21,7 +21,11 @@ var virus = require('../')({
   game: game,
   material: 'redwool',
 });
-game.on('fire', virus.infect.bind(virus));
+game.on('fire', function() {
+  var vec = game.cameraVector();
+  var pos = game.cameraPosition();
+  virus.infect(game.raycast(pos, vec, 100).voxel);
+});
 game.on('tick', virus.tick.bind(virus));
 
 var toWater = require('./water');

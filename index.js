@@ -1,5 +1,3 @@
-var isArray = require('util').isArray;
-
 function Virus(opts) {
   if (!(this instanceof Virus)) return new Virus(opts || {});
   if (opts.THREE) opts = {game:opts};
@@ -19,14 +17,7 @@ module.exports = Virus;
 
 Virus.prototype.infect = function(block, level) {
   var game = this.game;
-  if (typeof level !== 'number') {
-    level = 0;
-  }
-  if (!isArray(block)) {
-    var vec = game.cameraVector();
-    var pos = game.cameraPosition();
-    block = game.raycast(pos, vec, 100).voxel;
-  }
+  level = level || 0;
   if (level >= this.decay || !block) return;
   if (this.material !== false) game.setBlock(block, this.material);
   this.infected.push([this.elapsed + this.rate, block, level]);

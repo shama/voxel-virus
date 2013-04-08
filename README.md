@@ -45,8 +45,12 @@ var virus = require('voxel-virus')({
   }
 });
 
-// on click, infect block
-game.on('fire', virus.infect.bind(virus));
+// on fire, infect block
+game.on('fire', function() {
+  var vec = game.cameraVector();
+  var pos = game.cameraPosition();
+  virus.infect(game.raycast(pos, vec, 100).voxel);
+});
 
 // on tick, spread the virus
 game.on('tick', virus.tick.bind(virus));
@@ -55,9 +59,18 @@ game.on('tick', virus.tick.bind(virus));
 # api
 
 ## virus.infect([block, level])
-If no arguments given, it will infect the block you're pointing at. Set `block`
-to position of block `new game.THREE.Vector3(0, 0, 0)` to infect. `level` is the
+Set `block` to position of block `[0, 0, 0]` to infect. `level` is the
 current number of iteration the infection is on.
+
+To infect the block you're looking at:
+
+```js
+game.on('fire', function() {
+  var vec = game.cameraVector();
+  var pos = game.cameraPosition();
+  virus.infect(game.raycast(pos, vec, 100).voxel);
+});
+```
 
 ## virus.tick(delta)
 Push the iterations forward. Needs to be added to the game tick to keep in time
@@ -72,7 +85,7 @@ Returns block positions around the given `block`. Uses `virus.virulence` to
 randomly *not* select blocks.
 
 ```js
-var around = virus.around({x:0,y:0,z:0});
+var around = virus.around([0, 0, 0]);
 // around equals an array of blocks up, down, left, right, front and back
 ```
 
@@ -98,6 +111,7 @@ npm install voxel-virus
 Use [browserify](http://browserify.org) to `require('voxel-virus')`.
 
 ## release history
+* 0.2.0 - infect doesnt default to the block you're looking at 
 * 0.1.1 - update for voxel-engine@0.16.3. infect doesnt ignore air voxels.
 * 0.1.0 - initial release
 
