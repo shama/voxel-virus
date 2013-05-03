@@ -2,7 +2,7 @@ var createGame = require('voxel-engine');
 var createTerrain = require('voxel-perlin-terrain');
 
 var game = createGame({
-  generateVoxelChunk: createTerrain({scaleFactor:10}),
+  generateVoxelChunk: createTerrain({scaleFactor:6}),
   chunkDistance: 2,
   materials: ['brick', ['grass', 'dirt', 'grass_dirt'], 'plank', 'obsidian', 'redwool', 'bluewool'],
   texturePath: 'textures/'
