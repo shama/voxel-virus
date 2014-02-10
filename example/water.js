@@ -21,31 +21,21 @@ module.exports = function(water, material) {
 
     var size = self.game.cubeSize;
     var around = [];
-    [
-      [1, 0, 0], [-1, 0, 0],
-      [0, 0, 1], [0, 0, -1],
-    ].forEach(function(p) {
-      var b = [block[0] + (p[0] * size), block[1] + (p[1] * size), block[2] + (p[2] * size)];
-      if (self.game.getBlock(b) !== 0) return;
-      var down = [block[0], block[1] + (-1 * size), block[2]];
-      var downType = self.game.getBlock(down);
-      if (downType === 0) {
-        around.push(down);
-      } else if (downType !== self.material) {
-        around.push(b);
-      }
-    });
 
-    var b = self.game.getBlock([block[0], block[1] + (-1 * size), block[2]]);
-    if (b === 0) {
-      around.push(b);
+    // if air is below just flow down
+    var down = [block[0], block[1] - size, block[2]];
+    if (self.game.getBlock(down) === 0) {
+      self.infect(down, level);
+    } else {
+      // if air is on sides and water not below = flow sideways
+      [ [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1] ].forEach(function(p) {
+        var side = [block[0] + (p[0] * size), block[1], block[2] + (p[2] * size)];
+        if (self.game.getBlock(side) !== 0) return;
+        var below = [side[0], side[1] - size, side[2]];
+        if (self.game.getBlock(below) === self.material) return;
+        self.infect(side, level);
+      });
     }
-
-    around.forEach(function(b) {
-      if (!require('util').isArray(b)) return;
-      if (self.game.getBlock(b) !== 0) return;
-      self.infect(b, level);
-    });
   };
 
   return toNormal;
