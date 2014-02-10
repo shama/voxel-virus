@@ -25,15 +25,15 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "start": "cd example && ../node_modules/.bin/browservefy world.js 8080 -- -d",
+    "start": "cd example && ../node_modules/.bin/beefy world.js 8080 -- -d",
     "gh-pages": "cp -R ./example/* ./ && browserify world.js -o world.js"
   },
   "devDependencies": {
-    "voxel-engine": "~0.17.1",
-    "browservefy": "0.0.9",
+    "voxel-engine": "~0.20.0",
     "voxel-player": "~0.1.0",
-    "voxel-perlin-terrain": "0.0.5",
-    "toolbar": "0.0.5"
+    "voxel-perlin-terrain": "~1.0.0",
+    "toolbar": "0.0.5",
+    "beefy": "~1.0.0"
   },
   "peerDependencies": {
     "voxel-engine": ">= 0.17.0"
