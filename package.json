@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "cd example && ../node_modules/.bin/beefy world.js 8080 -- -d",
-    "gh-pages": "cp -R ./example/* ./ && browserify world.js -o world.js"
+    "gh-pages": "cp -R ./example/* ./ && browserify example/world.js -o world.js"
   },
   "devDependencies": {
     "voxel-engine": "~0.20.0",
